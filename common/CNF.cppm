@@ -5,6 +5,9 @@ module;
 
 export module CNF;
 
+// Don't work for some reason
+// import <array>;
+
 namespace SAT
 {
 
