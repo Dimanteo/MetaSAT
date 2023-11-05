@@ -1,0 +1,8 @@
+Language: Cpp
+BasedOnStyle: LLVM
+ColumnLimit: 80
+UseTab: Never
+TabWidth: 2
+UseCRLF: false
+SortIncludes: true
+BreakBeforeBraces: Allman
