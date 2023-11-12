@@ -23,6 +23,8 @@ set(CMAKE_CXX_FLAGS "-Wall -Wextra")
 set(CMAKE_CXX_FLAGS_DEBUG "-g")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3 -DNDEBUG")
 
+include_directories(${CMAKE_BINARY_DIR})
+
 set(CXX_SANITIZERS
     -fsanitize=address
     -fsanitize=alignment

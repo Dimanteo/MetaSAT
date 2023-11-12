@@ -1,24 +1,47 @@
 import CNF;
 import SAT_rt;
 
-#include <cassert>
+#include <array>
 #include <iostream>
+
+using namespace SAT;
+using namespace SAT::Test;
+
+template <typename Test>
+void test(size_t test_i, SAT::Runtime::SATSolver &solver, Test &test)
+{
+  solver.set_cnf_task(test.cnf, test.cnf.get_num_vars());
+  auto res = solver.solve();
+
+  if (res != test.is_sat)
+  {
+    std::cerr << "Test " << test_i << " fail: Wrong SAT value";
+    abort();
+  }
+
+  bool eval_res = test.cnf.eval(solver.answer_begin());
+
+  if (eval_res != test.is_sat)
+  {
+    std::cerr << "Test " << test_i << " fail: evaluation failure\n";
+    std::for_each(solver.answer_begin(), solver.answer_end(),
+                  [](int x) { std::cerr << x << " "; });
+    std::cout << "\n";
+    abort();
+  }
+}
+
+// Generated via testgen.py
+//
+#include "autogen_tests.h"
 
 int main()
 {
   SAT::Runtime::SATSolver solver;
-  solver.set_cnf_task(SAT::Test::sat_test.cnf,
-                      SAT::Test::sat_test.cnf.get_num_vars());
-  auto res = solver.solve();
 
-  std::for_each(solver.answer_begin(), solver.answer_end(),
-                [](int val) { std::cout << val << " "; });
-
-  assert(res == SAT::Test::sat_test.is_sat && "Wrong SAT value");
-
-  bool eval_res = SAT::Test::sat_test.cnf.eval(solver.answer_begin());
-
-  assert(eval_res == SAT::Test::sat_test.is_sat && "Test evaluation failed");
-
+  for (size_t i = 0; i < autogen_tests.size(); ++i)
+  {
+    test(i, solver, autogen_tests[i]);
+  }
   return 0;
 }

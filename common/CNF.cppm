@@ -95,9 +95,6 @@ export template <typename CNF> struct SATTest
   {}
 };
 
-export SATTest<CNF<2, 3, 3>> sat_test{true,
-                                      std::array<var_t, 6>{3, 3, 2, 2, -1, 2}};
-
 } // namespace Test
 
 } // namespace SAT
