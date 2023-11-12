@@ -155,10 +155,11 @@ private: // methods
   {
     bool is_sat = true;
     bool conjunct = false;
-    size_t dis_number = 1;
 
-    for (auto &&disjunct : m_cnf)
+    for (size_t dis_number = 0; dis_number < m_cnf.size(); dis_number++)
     {
+      auto &&disjunct = m_cnf[dis_number];
+
       auto answer_val = m_answer[get_num(disjunct)];
       bool value = false;
 
@@ -173,7 +174,7 @@ private: // methods
 
       conjunct = conjunct || value;
 
-      if (dis_number % m_conj_len == 0)
+      if ((dis_number + 1) % m_conj_len == 0)
       {
         is_sat = is_sat && conjunct;
         conjunct = false;

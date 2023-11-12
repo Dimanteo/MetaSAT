@@ -15,9 +15,13 @@ void test(size_t test_i, SAT::Runtime::SATSolver &solver, Test &test)
 
   if (res != test.is_sat)
   {
-    std::cerr << "Test " << test_i << " fail: Wrong SAT value";
+    std::cerr << "Test " << test_i << " fail: Wrong SAT value. Expected "
+              << test.is_sat << " got " << res << "\n";
     abort();
   }
+
+  if (test.is_sat == false)
+    return;
 
   bool eval_res = test.cnf.eval(solver.answer_begin());
 
@@ -26,7 +30,7 @@ void test(size_t test_i, SAT::Runtime::SATSolver &solver, Test &test)
     std::cerr << "Test " << test_i << " fail: evaluation failure\n";
     std::for_each(solver.answer_begin(), solver.answer_end(),
                   [](int x) { std::cerr << x << " "; });
-    std::cout << "\n";
+    std::cerr << "\n";
     abort();
   }
 }
