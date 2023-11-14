@@ -47,6 +47,13 @@ public:
   SATSolver() = default;
 
   template <typename CNF>
+  requires requires(CNF cnf)
+  {
+    cnf.get_conj_len();
+    cnf.get_conj_num();
+    cnf.begin();
+    cnf.end();
+  }
   void set_cnf_task(const CNF &cnf_task, size_t num_vars)
   {
     m_conj_len = cnf_task.get_conj_len();

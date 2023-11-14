@@ -3,6 +3,7 @@ module;
 #include <array>
 #include <cstdlib>
 #include <stddef.h>
+#include <concepts>
 
 export module CNF;
 
@@ -31,6 +32,7 @@ public:
   using Conjunct = std::array<var_t, ConjLen>;
   using CNFType = std::array<Conjunct, ConjLen>;
 
+  using iterator = CNFType::iterator;
   using const_iterator = CNFType::const_iterator;
 
 private:
@@ -50,10 +52,13 @@ public:
   constexpr size_t get_num_vars() const { return NumVars; }
   constexpr size_t get_conj_len() const { return ConjLen; }
   constexpr size_t get_conj_num() const { return ConjNum; }
+  constexpr iterator begin() { return m_conjuncts.begin(); }
+  constexpr iterator end() { return m_conjuncts.end(); }
   constexpr const_iterator begin() const { return m_conjuncts.begin(); }
   constexpr const_iterator end() const { return m_conjuncts.end(); }
 
   template <std::random_access_iterator SolutionIt>
+  requires requires (SolutionIt x) { {*x} -> std::convertible_to<ValueEncoding>; }
   constexpr bool eval(SolutionIt solution_begin)
   {
     bool result = true;
