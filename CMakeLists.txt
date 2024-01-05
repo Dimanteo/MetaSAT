@@ -25,30 +25,33 @@ set(CMAKE_CXX_FLAGS_RELEASE "-O3 -DNDEBUG")
 
 include_directories(${CMAKE_BINARY_DIR})
 
-set(CXX_SANITIZERS
-    -fsanitize=address
-    -fsanitize=alignment
-    -fsanitize=bool
-    -fsanitize=bounds
-    -fsanitize=enum
-    -fsanitize=float-cast-overflow
-    -fsanitize=float-divide-by-zero
-    -fsanitize=integer-divide-by-zero
-    -fsanitize=leak
-    -fsanitize=nonnull-attribute
-    -fsanitize=null
-    -fsanitize=return
-    -fsanitize=returns-nonnull-attribute
-    -fsanitize=shift
-    -fsanitize=signed-integer-overflow
-    -fsanitize=undefined
-    -fsanitize=unreachable
-    -fsanitize=vla-bound
-    -fsanitize=vptr
-    -fsized-deallocation)
+if (CMAKE_BUILD_TYPE EQUAL "Debug")
+  set(CXX_SANITIZERS
+      -fsanitize=address
+      -fsanitize=alignment
+      -fsanitize=bool
+      -fsanitize=bounds
+      -fsanitize=enum
+      -fsanitize=float-cast-overflow
+      -fsanitize=float-divide-by-zero
+      -fsanitize=integer-divide-by-zero
+      -fsanitize=leak
+      -fsanitize=nonnull-attribute
+      -fsanitize=null
+      -fsanitize=return
+      -fsanitize=returns-nonnull-attribute
+      -fsanitize=shift
+      -fsanitize=signed-integer-overflow
+      -fsanitize=undefined
+      -fsanitize=unreachable
+      -fsanitize=vla-bound
+      -fsanitize=vptr
+      -fsized-deallocation)
 
-add_compile_options(${CXX_SANITIZERS})
-add_link_options(${CXX_SANITIZERS})
+  add_compile_options(${CXX_SANITIZERS})
+  add_link_options(${CXX_SANITIZERS})
+endif()
 
 add_subdirectory(common)
 add_subdirectory(sat_runtime)
+add_subdirectory(sat_comptime)

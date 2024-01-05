@@ -56,8 +56,8 @@ def main():
     num_sat = 10
     num_unsat = 10
     conj_len = 3
-    num_conj = 20
-    num_vars = 10
+    num_conj = 3
+    num_vars = 5
 
     cppcode = "/*** Auto-generated file. Change testgen.py script to modify. ***/\n\n"
 
@@ -66,7 +66,7 @@ def main():
         exit(42)
 
     test_type = f"SATTest<CNF<{num_conj}, {conj_len}, {num_vars}>>"
-    cppcode += f"std::array<{test_type}, {num_sat + num_unsat}> autogen_tests {{\n"
+    cppcode += f"constexpr std::array<{test_type}, {num_sat + num_unsat}> autogen_tests {{\n"
 
     for i in range(num_sat):
         sat = gen_sat(  num_conj=num_conj,

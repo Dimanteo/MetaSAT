@@ -49,9 +49,9 @@ public:
     }
   }
 
-  constexpr size_t get_num_vars() const { return NumVars; }
-  constexpr size_t get_conj_len() const { return ConjLen; }
-  constexpr size_t get_conj_num() const { return ConjNum; }
+  constexpr static size_t get_num_vars() { return NumVars; }
+  constexpr static size_t get_conj_len() { return ConjLen; }
+  constexpr static size_t get_conj_num() { return ConjNum; }
   constexpr iterator begin() { return m_conjuncts.begin(); }
   constexpr iterator end() { return m_conjuncts.end(); }
   constexpr const_iterator begin() const { return m_conjuncts.begin(); }
@@ -59,7 +59,7 @@ public:
 
   template <std::random_access_iterator SolutionIt>
   requires requires (SolutionIt x) { {*x} -> std::convertible_to<ValueEncoding>; }
-  constexpr bool eval(SolutionIt solution_begin)
+  constexpr bool eval(SolutionIt solution_begin) const
   {
     bool result = true;
     for (auto &&conj : m_conjuncts)

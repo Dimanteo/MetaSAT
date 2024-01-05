@@ -35,7 +35,7 @@ private:
 
   // Encodes info about currently defined variables in CNF.
   // mask[i] = false -> variable on that position in cnf is undefined
-  // mask[i] = true  -> variable is assigned or it's value soesn't matter
+  // mask[i] = true  -> variable is assigned or it's value doesn't matter
   //
   std::vector<bool> m_defined_map;
 
