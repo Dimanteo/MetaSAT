@@ -53,11 +53,11 @@ def gen_test(is_sat : bool, cnf : list[list], num_vars : int, name):
 def main():
     seed(42)
 
-    num_sat = 10
-    num_unsat = 10
+    num_sat = 1
+    num_unsat = 1
     conj_len = 3
-    num_conj = 3
-    num_vars = 5
+    num_conj = 220
+    num_vars = 20
 
     cppcode = "/*** Auto-generated file. Change testgen.py script to modify. ***/\n\n"
 

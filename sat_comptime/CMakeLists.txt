@@ -1,7 +1,6 @@
 # Tests for library
 add_executable(ct_sat ct_sat.cpp)
 target_link_libraries(ct_sat CNF)
-add_dependencies(ct_sat generate_tests)
 add_test(NAME Compiletime_SAT
         COMMAND $<TARGET_FILE:ct_sat>)
 

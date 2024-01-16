@@ -9,7 +9,7 @@ using namespace SAT::Test;
 
 // Generated via testgen.py
 //
-#include "autogen_tests.h"
+#include "tests.h"
 
 template <typename CNFType, typename Array>
 consteval bool is_cnf_sat(const CNFType &cnf, Array &solution, size_t idx)

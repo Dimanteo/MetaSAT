@@ -10,6 +10,10 @@ using namespace SAT::Test;
 template <typename Test>
 void test(size_t test_i, SAT::Runtime::SATSolver &solver, Test &test)
 {
+  std::cout << "Solving " << test.cnf.get_conj_len() << "SAT with "
+            << test.cnf.get_num_vars() << " variables in "
+            << test.cnf.get_conj_num() << " conjuncts\n";
+
   solver.set_cnf_task(test.cnf, test.cnf.get_num_vars());
   auto res = solver.solve();
 
@@ -19,9 +23,6 @@ void test(size_t test_i, SAT::Runtime::SATSolver &solver, Test &test)
               << test.is_sat << " got " << res << "\n";
     abort();
   }
-
-  if (test.is_sat == false)
-    return;
 
   bool eval_res = test.cnf.eval(solver.answer_begin());
 
@@ -33,19 +34,25 @@ void test(size_t test_i, SAT::Runtime::SATSolver &solver, Test &test)
     std::cerr << "\n";
     abort();
   }
+
+  std::cout << "Result = " << eval_res << "\n";
 }
 
 // Generated via testgen.py
 //
-#include "autogen_tests.h"
+#include "tests.h"
 
 int main()
 {
   SAT::Runtime::SATSolver solver;
 
+  std::cout << "Running tests\n";
+
   for (size_t i = 0; i < autogen_tests.size(); ++i)
   {
     test(i, solver, autogen_tests[i]);
   }
+
+  std::cout << "Finished\n";
   return 0;
 }
