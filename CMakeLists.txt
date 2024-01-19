@@ -8,7 +8,7 @@ project(sat_solver CXX)
 
 include(CTest)
 
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 if (NOT CMAKE_BUILD_TYPE)
@@ -19,7 +19,7 @@ set(CMAKE_INSTALL_PREFIX ${CMAKE_CURRENT_BINARY_DIR})
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-set(CMAKE_CXX_FLAGS "-Wall -Wextra")
+set(CMAKE_CXX_FLAGS "-Wall -Wextra -fconstexpr-depth=100 -fconstexpr-steps=5000000")
 set(CMAKE_CXX_FLAGS_DEBUG "-g")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3 -DNDEBUG")
 
@@ -55,3 +55,4 @@ endif()
 add_subdirectory(common)
 add_subdirectory(sat_runtime)
 add_subdirectory(sat_comptime)
+add_subdirectory(sat_hybrid)

@@ -15,7 +15,7 @@ namespace SAT
 namespace Runtime
 {
 
-export class SATSolver final
+export class SATSolver
 {
 public:
   using answer_type = std::vector<ValueEncoding>;
@@ -39,6 +39,7 @@ private:
   //
   std::vector<bool> m_defined_map;
 
+protected:
   // Mapping of variables to disjuncts.
   //
   std::vector<std::unordered_set<size_t>> m_var_uses;
@@ -144,20 +145,6 @@ private: // methods
                   [this, value](size_t idx) { m_defined_map[idx] = value; });
   }
 
-  void define_var(var_num_t variable, bool value)
-  {
-    m_answer[variable] = value ? ValueEncoding::TRUE : ValueEncoding::FALSE;
-    set_all_uses(variable, true);
-  }
-
-  void undefine_var(var_num_t variable)
-  {
-    m_answer[variable] = ValueEncoding::ANY;
-    set_all_uses(variable, false);
-  }
-
-  // void propagate_var(var_num_t variable, bool value) {}
-
   bool check_answer()
   {
     bool is_sat = true;
@@ -190,6 +177,22 @@ private: // methods
 
     return is_sat;
   }
+
+protected:
+  void define_var(var_num_t variable, bool value)
+  {
+    m_answer[variable] = value ? ValueEncoding::TRUE : ValueEncoding::FALSE;
+    set_all_uses(variable, true);
+  }
+
+  void undefine_var(var_num_t variable)
+  {
+    m_answer[variable] = ValueEncoding::ANY;
+    set_all_uses(variable, false);
+  }
+
+  // TODO: exclude clauses that already satisfied
+  // void propagate_var(var_num_t variable, bool value) {}
 };
 
 } // namespace Runtime
